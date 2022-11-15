@@ -1,4 +1,5 @@
 class TreeNode{
+    //To know where to go when deleting
     constructor(char) {
         this.val = char;
         this.rightChild = null;
@@ -64,12 +65,9 @@ class Tree{
 }
 
 const tree = new Tree();
-tree.push(33);
-tree.push(13);
-tree.push(53);
-tree.push(11);
-tree.push(21);
-tree.push(61);
-tree.push(9);
-tree.push(8);
+tree.push(1);
+tree.push(2);
+tree.push(3);
+tree.push(4);
+tree.push(5);
 console.log(tree.root);
