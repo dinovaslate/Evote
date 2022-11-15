@@ -11,18 +11,7 @@ body {
   grid-template-columns: 1fr 750px;
   align-items: center;
 }
-body::after {
-  content: '';
-  display: block;
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  background-image: url(bg.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  opacity: 0.6;
-  z-index: -1;
-}
+
 @font-face {
   font-family: bauhaus;
   src: url(Square.woff);
@@ -214,4 +203,11 @@ body::after {
 }
 .big-button.active > .right {
   transform: rotate(180deg);
+}
+.decorate{
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 180px;
+    background-image: url(Tak\ berjudul148_20221111220535.png);
+    background-size: contain;
 }
