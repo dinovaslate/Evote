@@ -11,7 +11,19 @@ body {
   grid-template-columns: 1fr 750px;
   align-items: center;
 }
-
+body::after {
+  content: '';
+  display: block;
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  background-image: url(bg.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  filter: brightness(90%);
+  opacity: 0.6;
+  z-index: -1;
+}
 @font-face {
   font-family: bauhaus;
   src: url(Square.woff);
