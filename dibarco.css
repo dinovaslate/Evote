@@ -218,8 +218,12 @@ body::after {
 }
 .decorate{
     position: absolute;
-    inset: auto 0 0 0;
+    inset: auto 0 -1% 0;
     height: 180px;
-    background-image: url(Tak\ berjudul148_20221111220535.png);
+    background-image: url(Tak\ berjudul150_20221117154130.png);
     background-size: contain;
+    
+}
+#dd1{
+  box-sizing: border-box;
 }
