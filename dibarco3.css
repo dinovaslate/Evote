@@ -214,6 +214,7 @@ button[type="submit"]{
   font-family: bauhaus;
   border-radius: 10px;
   cursor: pointer;
+  text-decoration: none;
 }
 .logout {
   position: absolute;
