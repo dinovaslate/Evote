@@ -19,12 +19,12 @@
             <div class="field">
                 <label for="">Enter Username</label>
                 <div class="input">
-                    <input type="text" id="" placeholder="Enter Username">
+                    <input type="text" id="username" placeholder="Enter Username">
                     <i class="icon fa-solid fa-user-secret"></i>
                 </div>
-                <label for="">Enter Username</label>
+                <label for="">Enter Password</label>
                 <div class="input">
-                    <input type="password" id="target" placeholder="Enter Password">
+                    <input type="password" id="password" placeholder="Enter Password">
                     <i class="icon fa-solid fa-lock"></i>
                     <i class="fa-solid fa-eye see" id="toggle"></i>
                 </div>
@@ -45,14 +45,15 @@
         document.querySelector("#toggle").addEventListener("click", (e) => {
             e.currentTarget.classList.toggle("fa-eye-slash");
             e.currentTarget.classList.toggle("fa-eye");
-            const input = document.querySelector("#target");
+            const input = document.querySelector("#password");
             input.type = input.type === "password" ? "text" : "password";
         })
-        document.querySelector("#submit").addEventListener("click", (e) => {
-            const toastContainer = document.querySelector(".toasts");
+
+        const toastContainer = document.querySelector(".toasts");
+        function createToast(text) {
             const toast = document.createElement("div");
             toast.classList.add("toast");
-            toast.innerText = "This is a test";
+            toast.innerText = text;
             toastContainer.prepend(toast);
             setTimeout(() => {
                 toast.animate([{ opacity: 1 }, { opacity: 0 }], {
@@ -64,6 +65,56 @@
             setTimeout(() => {
                 toastContainer.removeChild(toast);
             }, 2300);
+        }
+
+        let disabled = false;
+        function setDisable(state) {
+            disabled = state;
+            document.querySelector("#submit").disabled = state;
+            document.querySelector("#submit").innerText = state ? "Loading..." : "Submit";
+        }
+
+        const username = document.querySelector("#username");
+        const password = document.querySelector("#password");
+
+        document.querySelector("#submit").addEventListener("click", (e) => {
+            if (!username.value.length) {
+                createToast("Username tidak boleh kosong");
+                return;
+            } else if (!password.value.length) {
+                createToast("Password tidak boleh kosong");
+                return;
+            }
+
+            if (disabled) return;
+            setDisable(true);
+
+            fetch("http://localhost:3000/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    username: username.value,
+                    password: password.value
+                })
+            })
+                .then(async res => {
+                    const json = await res.json();
+                    if (!res.ok) {
+                        createToast("Username atau password salah");
+                        setDisable(false);
+                        return;
+                    }
+
+                    localStorage.setItem("token", json.token);
+                    localStorage.setItem("displayName", json.displayName);
+                    location.href = "/";
+                })
+                .catch((err) => {
+                    createToast("Terjadi kesalahan saat mengirim data");
+                    setDisable(false);
+                })
         })
     </script>
   </body>

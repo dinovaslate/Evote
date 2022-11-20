@@ -12,15 +12,9 @@
       <div class="navbar">
         <div class="logo">
           moonzher
-          <div class="button">Action</div>
-          <div class="navs">
-            <div class="nav">Admin</div>
-            <div class="nav">App</div>
-          </div>
         </div>
-        <div style="position: relative">
-          <div class="account">Komputer 10</div>
-          <div class="account logout">Logout</div>
+        <div id="login-info" style="position: relative">
+          <a href="/login.html" class="account">Login</a>
         </div>
       </div>
       <div class="headline">
@@ -57,6 +51,21 @@
           document.querySelector('#dd1').classList.toggle('active');
         e.currentTarget.classList.toggle('active');
       });
+
+      const token = localStorage.getItem("token");
+      const displayName = localStorage.getItem("displayName");
+      if (token && displayName) {
+        document.querySelector("#login-info").innerHTML = `
+          <div class="account">${displayName}</div>
+          <div id="logout" class="account logout">Logout</div>
+        `;
+
+        document.querySelector("#logout").addEventListener("click", () => {
+          localStorage.removeItem("token");
+          localStorage.removeItem("displayName");
+          window.location.reload();
+        });
+      }
     </script>
   </body>
 </html>
